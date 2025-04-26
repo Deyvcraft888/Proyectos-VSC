@@ -43,6 +43,9 @@ void loop(){
 
   bool pulsadores[3] = {digitalRead(puls[0]), digitalRead(puls[1]), digitalRead(puls[2])};
 
+//Sumamos una repeticion para la siguiente secuencia
+    byte repeticiones = repeticiones + 1;
+
   // Si se presiona cualquier pulsador
   if (pulsadores[0] || pulsadores[1] || pulsadores[2]) {
     // Invertir el estado del LED verde
@@ -58,19 +61,18 @@ void loop(){
     // Mostrar en Serial Monitor
     Serial.print("LED Verde: ");
     Serial.print(estadoVerde ? "Encendido" : "Apagado");
-    Serial.println(repeticiones + "veces");
+Serial.println(repeticiones);
+    Serial.println(" veces");
     Serial.print("LED Rojo: ");
     Serial.print(!estadoVerde ? "Encendido" : "Apagado");
-    Serial.println(repeticiones + "veces")
+Serial.println(repeticiones);
+    Serial.println(" veces");
     Serial.println("------------------------------------------");
 
     // Esperar hasta que se suelten todos los pulsadores (para evitar rebotes)
     while (digitalRead(puls[0]) || digitalRead(puls[1]) || digitalRead(puls[2])) {
       delay(3000);  // Pequeño delay para estabilidad
     }
-
-    //Sumamos una repeticion para la siguiente secuencia
-    byte repeticiones = repeticiones + 1;
     
     delay(1000);  // Pequeño delay para evitar rebotes
   }
